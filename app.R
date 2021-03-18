@@ -206,7 +206,7 @@ server <- function(input, output) {
   MyReg <- reactive({
     lm(Y~., data=MyDat())
   })
-  
+   
   # getPage <- function(){
   #   return(includeHTML("regtable.html"))
   # }
