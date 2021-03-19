@@ -193,7 +193,13 @@ server <- function(input, output) {
   })
   
   MyDat <- reactive({
-    GenDataReg(N=input$N, Np=as.numeric(input$Np), Nc=as.numeric(input$Nc), COR=input$Mc, Wts=Wts(), R2=input$Rsq, Outls=input$Outls)
+    GenDataReg(N=input$N, 
+               Np=as.numeric(input$Np), 
+               Nc=as.numeric(input$Nc), 
+               COR=input$Mc, 
+               Wts=Wts(), 
+               R2=input$Rsq, 
+               Outls=input$Outls)
   })
   
   ## for plot and table ideas, see:
@@ -220,7 +226,7 @@ server <- function(input, output) {
       localD <- MyDat()
       localD$res <- resid(MyReg())
       localD$Yhat <- predict(MyReg())
-      ggplot(localD, aes(Yhat, Y)) + geom_smooth()
+      ggplot(localD, aes(Yhat, Y)) + geom_smooth() + geom_abline(col="red",lwd=2,lty=2)
     })
     
     output$biPlots <- renderPlot({
