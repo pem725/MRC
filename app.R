@@ -226,7 +226,7 @@ server <- function(input, output) {
       localD <- MyDat()
       localD$res <- resid(MyReg())
       localD$Yhat <- predict(MyReg())
-      ggplot(localD, aes(Yhat, Y)) + geom_smooth() + geom_abline(col="red",lwd=2,lty=2)
+      ggplot(localD, aes(Yhat, Y)) + geom_smooth() + geom_abline(col="red",lwd=2,lty=2) + geom_point()
     })
     
     output$biPlots <- renderPlot({
@@ -240,8 +240,6 @@ server <- function(input, output) {
       autoplot(MyReg())
       
     })
-    
-    
 }
 
 # Run the application 
