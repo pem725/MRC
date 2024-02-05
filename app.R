@@ -27,7 +27,7 @@ library(GGally)
 GenDataReg <- function(N,Np,Nc,COR,Wts,R2,Outls=NULL){ ## where N=sample size, Np=num of pred, Nc=num of common factors of predictors, COR=avg cor among pred, Wts=regression wts, R2=rel bet yhat and yobs
   # first create the predictor variables  
   if (Np==1) {
-    pdat <- data.frame(X1=rnorm(N,0,1))
+    pdat <- data.frame(P1=rnorm(N,0,1))
   } else {
     NV <- round((Np/Nc)) ## evenly distributed number of vars per underlying factor
     pdat <- data.frame(id=1:N)
