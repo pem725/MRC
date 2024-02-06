@@ -164,7 +164,12 @@ ui <- fluidPage(
                         max=20,
                         value=0,
                         animate = TRUE,
-                        step=2)
+                        step=2),
+            radioButtons("Ints",
+                         "Model Types:",
+                         choices=c("Main Effects (ME) Only" = 1,
+                                   "ME + 2-way Interactions" = 2,
+                                   "ME + 2-way + 3-way Interactions" = 3))
             #radioButtons("dist", 
             #             label = h3("Distribution of DV"),
             #             choices = list("Normal" = 1, "Binary" = 2, "Random" = 3),
@@ -220,7 +225,14 @@ server <- function(input, output) {
   ##  5.  
   
   MyReg <- reactive({
-    lm(Y~., data=MyDat())
+    if (input$Ints == 1) {
+      lm(Y~., data=MyDat())
+    } else if (input$Ints == 2) {
+      lm(Y~.*., data=MyDat())
+    } else if (input$Ints == 3) {
+      lm(Y~.*.*., data=MyDat())
+    }
+    #lm(Y~., data=MyDat())
   })
    
   # getPage <- function(){
