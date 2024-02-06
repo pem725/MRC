@@ -43,16 +43,20 @@ GenDataReg <- function(N,Np,Nc,COR,Wts,R2,Outls=NULL){ ## where N=sample size, N
     pdat <- pdat[,-1]
   }
   
-  ## now created the Y vars
+  ## now create the Y vars
   if (is.null(Wts)){
     Wts <- rep(1,ncol(pdat))
   } else if (length(Wts) != ncol(pdat)){
     Wts <- rep(1,ncol(pdat))
+  } else {
+    Wts <- Wts
   }
-  xw <- pdat
+  
+  xw <- pdat ## create the weighted predictors (now a copy of pdat)
   for (i in 1:length(Wts)){
     xw[,i] <- pdat[,i]*Wts[i]
   }
+  
   y.hat <- rowSums(xw)
   err1 <- rnorm(N, mean(y.hat), sd(y.hat)) # random error
   y.obs <- scale(y.hat)*sqrt(R2) + scale(residuals(lm(err1~y.hat))) * sqrt(1-R2)
@@ -128,7 +132,8 @@ ui <- fluidPage(
                         "Model Predictors:",
                         choices = c("1" = 1,
                                     "2" = 2,
-                                    "3" = 3),
+                                    "3" = 3,
+                                    "4" = 4),
                         inline = T),
             sliderInput("Rsq",
                         "Model fit (% of var(Y) explained by model):",
